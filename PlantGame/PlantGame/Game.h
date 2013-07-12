@@ -2,6 +2,8 @@
 
 #include <vector>
 #include "Player.h"
+#include "GameMap.h"
+#include "GameOptions.h"
 
 class Game
 {
