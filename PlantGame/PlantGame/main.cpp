@@ -26,6 +26,7 @@
 
 int main()
 {
+	int robert;
 	//Create local variables
 	const int FPS = 60;
 	const int NUM_SAMPLES = 8; //number of sounds playing at one time
