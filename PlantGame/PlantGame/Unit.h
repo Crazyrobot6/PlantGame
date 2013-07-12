@@ -26,6 +26,7 @@ public:
 	void subtractHitPoints(int amount);	//Removes a given amount of the plant's hit points
 	int getMaxHitPoints();	//Returns the max hp of the plant
 	void setOwner(Player* newOwner);	//Sets the player who owns the plant
+	Player* getOwner();	//Returns the owner of the plant
 	int getDefense();	//Returns the defense stat of the plant
 	void produceSeeds();	//Decrements turnsUntilSeeds or produces seeds if turnsUntilSeeds equals 0, in which case turnsUntilSeeds is reset
 				//This way we can call produceSeeds() for all of a player's plants rather than
