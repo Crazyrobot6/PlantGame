@@ -45,6 +45,12 @@
     <ClCompile Include="Flower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EvoTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOptions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Bitmaps\Flower1.bmp">
@@ -107,6 +113,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bush.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EvoTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

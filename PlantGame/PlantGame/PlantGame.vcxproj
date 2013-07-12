@@ -63,9 +63,11 @@
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bush.cpp" />
+    <ClCompile Include="EvoTree.cpp" />
     <ClCompile Include="Flower.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="GameOptions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Tree.cpp" />
@@ -88,9 +90,11 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="Bush.h" />
+    <ClInclude Include="EvoTree.h" />
     <ClInclude Include="Flower.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
+    <ClInclude Include="GameOptions.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Unit.h" />

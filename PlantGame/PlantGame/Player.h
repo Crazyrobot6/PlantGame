@@ -5,6 +5,8 @@
 #include "Unit.h"
 #include "EvoTree.h"
 
+class Unit;
+
 class Player
 {
 private:
@@ -19,8 +21,8 @@ private:
 public:
 	Player();	//Takes care of initializing the player
 	~Player();	//Garbage collection
-	void setName(string name);	//Sets the player's name
-	String getName();	//Returns the player's name
+	void setName(std::string name);	//Sets the player's name
+	std::string getName();	//Returns the player's name
 	void addToScore(int points);	//Increases the player's score by the value passed to the function 
 	int getScore();	//Returns the player's current score
 	void giveMinerals(double amount);	//Increases the amount of minerals the player currently has
@@ -29,6 +31,6 @@ public:
 	void giveWater(double amount);	//Increases the amount of water the player currently has
 	double getCurrentWater();	//Returns the amount of water the player currently has
 	void subtractWater(double amount);	//Decreases the amount of water the player has
-	vector* getUnits();	//Returns a pointer to the vector holding the player's units
+	std::vector<Unit*> getUnits();	//Returns the vector holding the player's units
 	EvoTree* getEvoTree();	//Returns the player's evolution tree
 };
