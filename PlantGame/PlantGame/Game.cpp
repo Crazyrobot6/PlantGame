@@ -41,3 +41,23 @@ void Game::incrementGameClock()
 void Game::draw()
 {
 }
+
+void Game::displayClose()
+{
+}
+
+void Game::keyPressA()
+{
+}
+
+void Game::keyPressD()
+{
+}
+
+void Game::keyPressS()
+{
+}
+
+void Game::keyPressW()
+{
+}

@@ -4,8 +4,9 @@
 #include "Player.h"
 #include "GameMap.h"
 #include "GameOptions.h"
+#include "GameState.h"
 
-class Game
+class Game : public GameState
 {
 private:
 	std::vector<Player*> players;	//Vector holding all players currently in the game
@@ -28,4 +29,10 @@ public:
 	void incrementGameClock();	//I just thought of this: a function that increments the in-game clock by one second
 								//We could call this function somewhere within the main loop to keep track of game time
 	void draw();	//Magical function that draws everything in-game to the screen
+	
+	void displayClose();
+	void keyPressA();
+	void keyPressD();
+	void keyPressS();
+	void keyPressW();
 };
