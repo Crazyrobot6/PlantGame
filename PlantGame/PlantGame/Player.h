@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "Unit.h"
+#include "EvoTree.h"
 
 class Player
 {
@@ -13,6 +14,7 @@ private:
 	double playerMinerals;
 	double playerWater;
 	std::vector<Unit*> playersUnits;
+	EvoTree* evoTree;
 
 public:
 	Player();	//Takes care of initializing the player
@@ -28,4 +30,5 @@ public:
 	double getCurrentWater();	//Returns the amount of water the player currently has
 	void subtractWater(double amount);	//Decreases the amount of water the player has
 	vector* getUnits();	//Returns a pointer to the vector holding the player's units
+	EvoTree* getEvoTree();	//Returns the player's evolution tree
 };
