@@ -8,42 +8,12 @@ Block::~Block()	//Does whatever garbage collection is needed
 {
 }
 
-Block* Block::getBelow()	//Self-explanatory
-{
-	return below;
-}
-
-Block* Block::getAbove()
-{
-	return above;
-}
-
-Block* Block::getNorth()
-{
-	return north;
-}
-
-Block* Block::getSouth()
-{
-	return south;
-}
-
-Block* Block::getEast()
-{
-	return east;
-}
-
-Block* Block::getWest()
-{
-	return west;
-}
-
 ALLEGRO_BITMAP* Block::getBitmap()	//Returns the bitmap so the block can be drawn
 {
-	return image;
+	return images[blockID];
 }
 
-double Block::givePlayerMinerals(int playerNum)	//See function definition for explanation
+double Block::givePlayerMinerals(int unitNum)	//See function definition for explanation
 {
 	/*	
 		Each player will be assigned a number
@@ -54,15 +24,15 @@ double Block::givePlayerMinerals(int playerNum)	//See function definition for ex
 		The materials will be given to the player like this:
 		Player.addMinerals(someBlock.givePlayerMinerals(Player.getPlayerNumber()));
 	*/
-	double percentage = percentControlledByPlayer[playerNum];
+	double percentage = numUnitRoots[unitNum];
 	double amountToGive = percentage * mineralsGivenPerTurn;
 	mineralsAvailable -= amountToGive;
 	return amountToGive;
 }
 
-double Block::givePlayerWater(int playerNum)
+double Block::givePlayerWater(int unitNum)
 {
-	double percentage = percentControlledByPlayer[playerNum];
+	double percentage = numUnitRoots[unitNum];
 	double amountToGive = percentage * waterGivenPerTurn;
 	waterAvailable -= amountToGive;
 	return amountToGive;
