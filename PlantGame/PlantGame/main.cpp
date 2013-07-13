@@ -23,7 +23,8 @@
 #include "Unit.h"
 
 //Function Prototypes
-void processEvents(ALLEGRO_EVENT ev, GameState *state);
+void processKeyDown(ALLEGRO_EVENT ev, GameState *state);
+void changeState(int newID, GameState *state);
 //Global Constants and Variables as needed
 
 int main()
@@ -31,8 +32,8 @@ int main()
 	//Create local variables
 	const int FPS = 60;
 	const int NUM_SAMPLES = 8; //number of sounds playing at one time
-	const int WIDTH = 100;
-	const int HEIGHT = 100;
+	const int WIDTH = 500;
+	const int HEIGHT = 500;
 	int mouseX = 0;
 	int mouseY = 0;
 	bool done = false; 
@@ -49,6 +50,8 @@ int main()
 	-Process .ini file -- this is where we save the data from the .ini to variables in the program
 	*/
 	if(!al_init()) return -1;
+	display = al_create_display(WIDTH, HEIGHT);//If you don't create it before setting the flags, the display window will be misshapen
+	al_destroy_display(display);//prevent memory leakage of the temporaray display
 	al_set_new_display_flags(ALLEGRO_RESIZABLE);	//changes based on .ini
 	display = al_create_display(WIDTH, HEIGHT);
 	al_set_window_position(display,0,0);		//if windowed, then sets position to top left corner
@@ -92,7 +95,29 @@ int main()
 		-Render output to screen
 	*/
 		if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) done = true;
-		else processEvents(ev, curState);
+		else if(ev.type == ALLEGRO_EVENT_TIMER)
+		{
+			if(curState->update() == 1)
+			{
+				delete curState;
+				curState = new Game();
+				//changeState(curState->update(), curState); //changes state, but lets the current one update one more time
+			}
+			redraw = true;
+		}
+		else if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+		{
+			processKeyDown(ev, curState);
+		}
+		else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
+			curState->setMousePos(ev.mouse.x, ev.mouse.y);
+
+		if(redraw & al_is_event_queue_empty(event_queue))
+		{
+			curState->draw();
+			al_flip_display();
+			al_clear_to_color(al_map_rgb(0,0,0));
+		}
 	}
 	al_destroy_timer(timer);
 	al_destroy_event_queue(event_queue);
@@ -100,27 +125,31 @@ int main()
 	return 0;
 }
 
-void processEvents(ALLEGRO_EVENT ev, GameState *state)
+void processKeyDown(ALLEGRO_EVENT ev, GameState *state)
 {
-	if(ev.type == ALLEGRO_EVENT_TIMER)
+	switch(ev.keyboard.keycode)
 	{
-		state->update();
+	case ALLEGRO_KEY_A:
+		state->keyPressA();
+		break;
+	case ALLEGRO_KEY_W:
+		state->keyPressW();
+		break;
+	case ALLEGRO_KEY_D:
+		state->keyPressD();
+		break;
+	case ALLEGRO_KEY_S:
+		state->keyPressS();
+		break;
 	}
-	else if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+}
+
+void changeState(int newID, GameState *state)
+{
+	if (newID == 1)	//new state should be an instance of Game
 	{
-		switch(ev.keyboard.keycode)
-		{
-			case ALLEGRO_KEY_A:
-				state->keyPressA();
-			case ALLEGRO_KEY_W:
-				state->keyPressW();
-			case ALLEGRO_KEY_D:
-				state->keyPressD();
-			case ALLEGRO_KEY_S:
-				state->keyPressS();
-		}
-	}
-	else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES){
-		state->setMousePos(ev.mouse.x, ev.mouse.y);
+		//delete state;
+		GameState *tempState = new Game();
+		state = tempState;
 	}
 }
