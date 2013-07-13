@@ -1,3 +1,4 @@
+#pragma once
 #include "Flower.h"
 
 Flower::Flower()

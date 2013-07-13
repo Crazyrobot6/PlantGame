@@ -1,3 +1,4 @@
+#pragma once
 //Allegro Headers -- add to as needed
 #include <allegro5\allegro.h>
 #include <allegro5\allegro5.h>
@@ -9,19 +10,21 @@
 #include <allegro5\allegro_primitives.h>
 
 //Class Headers
-#include "Block.h"
-#include "Bush.h"
-#include "EvoTree.h"
-#include "Flower.h"
-#include "Game.h"
-#include "GameMap.h"
-#include "GameOptions.h"
-#include "Player.h"
-#include "Tree.h"
-#include "Unit.h"
+#include "Block.cpp"
+#include "Bush.cpp"
+#include "EvoTree.cpp"
+#include "Flower.cpp"
+#include "StartMenu.cpp"
+#include "Game.cpp"
+#include "GameMap.cpp"
+#include "GameOptions.cpp"
+#include "GameState.h"
+#include "Player.cpp"
+#include "Tree.cpp"
+#include "Unit.cpp"
 
 //Function Prototypes
-
+void processEvents(ALLEGRO_EVENT ev, GameState *state);
 //Global Constants and Variables as needed
 
 int main()
@@ -34,6 +37,7 @@ int main()
 	int mouseX = 0;
 	int mouseY = 0;
 	bool done = false;
+	//GameState *curState;
 	//Create Allegro variables
 	ALLEGRO_DISPLAY *display;
 	ALLEGRO_EVENT_QUEUE *event_queue;
@@ -62,7 +66,7 @@ int main()
 	Initialize Allegro components
 	load bitmaps, audio, font, etc
 	*/
-
+	//curState = new StartMenu();
 
 	timer = al_create_timer(1.0/FPS);
 	event_queue = al_create_event_queue();			//create event queue, then register all sources sp ot works
@@ -80,6 +84,7 @@ int main()
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);	//waits for something to happen (timer, keyboard, mouse etc)
+		//processEvents(ev, curState);
 		done = true;		//prevent inf loop
 	/*
 	Game Loop
@@ -94,4 +99,9 @@ int main()
 	//al_destroy_display(display);
 	al_rest(1);	//Just waits to show that a black box appeared and that this works :D
 	return 0;
+}
+
+void processEvents(ALLEGRO_EVENT ev, GameState *state)
+{
+
 }

@@ -1,3 +1,4 @@
+#pragma once
 #include "EvoTree.h"
 
 double EvoTree::getMaxHPBonus()	//Returns bonus to max hp

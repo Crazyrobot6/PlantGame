@@ -1,3 +1,4 @@
+#pragma once
 #include "Game.h"
 
 Game::Game()
@@ -6,6 +7,8 @@ Game::Game()
 
 Game::~Game()
 {
+	delete map;
+	delete options;
 }
 
 void Game::addPlayer(Player* newPlayer)
@@ -17,12 +20,12 @@ void Game::setMap(GameMap* newMap)
 {
 	map = newMap;
 }
-
+/*
 void Game::setOptions(GameOptions* newOptions)
 {
 	options = newOptions;
 }
-
+*/
 int Game::getTurnsTaken()
 {
 	return turnsTaken;
@@ -33,16 +36,13 @@ int Game::getGameTime()
 	return gameTime;
 }
 
-void Game::incrementGameClock()
+int Game::update()
 {
 	gameTime++;
+	return -1;
 }
 
 void Game::draw()
-{
-}
-
-void Game::displayClose()
 {
 }
 

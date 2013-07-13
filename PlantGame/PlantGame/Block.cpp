@@ -1,3 +1,4 @@
+#pragma once
 #include "Block.h"
 
 Block::Block(int id)	//Initializes values minearls/water based on ID passed

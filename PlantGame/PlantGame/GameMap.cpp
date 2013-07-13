@@ -1,3 +1,4 @@
+#pragma once
 #include "GameMap.h"
 
 GameMap::GameMap(int x, int y, int z)
