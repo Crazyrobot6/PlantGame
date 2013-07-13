@@ -37,7 +37,7 @@ int main()
 	int mouseX = 0;
 	int mouseY = 0;
 	bool done = false;
-	//GameState *curState;
+	GameState *curState;
 	//Create Allegro variables
 	ALLEGRO_DISPLAY *display;
 	ALLEGRO_EVENT_QUEUE *event_queue;
@@ -66,7 +66,7 @@ int main()
 	Initialize Allegro components
 	load bitmaps, audio, font, etc
 	*/
-	//curState = new StartMenu();
+	curState = new StartMenu();
 
 	timer = al_create_timer(1.0/FPS);
 	event_queue = al_create_event_queue();			//create event queue, then register all sources sp ot works
@@ -84,8 +84,9 @@ int main()
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);	//waits for something to happen (timer, keyboard, mouse etc)
-		//processEvents(ev, curState);
-		done = true;		//prevent inf loop
+		if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) done = true;
+		else processEvents(ev, curState);
+		//done = true;		//prevent inf loop
 	/*
 	Game Loop
 		-Read input
@@ -103,5 +104,19 @@ int main()
 
 void processEvents(ALLEGRO_EVENT ev, GameState *state)
 {
-
+	if(ev.type == ALLEGRO_EVENT_TIMER)
+	{
+		state->update();
+	}
+	else if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+	{
+		switch(ev.keyboard.keycode)
+		{
+			case ALLEGRO_KEY_A:
+				state->keyPressA();
+		}
+	}
+	else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES){
+		state->setMousePos(ev.mouse.x, ev.mouse.y);
+	}
 }

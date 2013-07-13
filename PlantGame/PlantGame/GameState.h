@@ -12,6 +12,7 @@ protected:
 public:
 	GameState(){}
 	~GameState(){}
+	void setMousePos(int x, int y) {mouseX = x; mouseY = y;}
 	void virtual keyPressA() {}	//called when A is pressed
 	void virtual keyPressD() {}	//etcetera
 	void virtual keyPressS() {}
