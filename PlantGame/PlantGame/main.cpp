@@ -10,18 +10,17 @@
 #include <allegro5\allegro_primitives.h>
 
 //Class Headers
-#include "Block.cpp"
-#include "Bush.cpp"
-#include "EvoTree.cpp"
-#include "Flower.cpp"
-#include "StartMenu.cpp"
-#include "Game.cpp"
-#include "GameMap.cpp"
-#include "GameOptions.cpp"
-#include "GameState.h"
-#include "Player.cpp"
-#include "Tree.cpp"
-#include "Unit.cpp"
+#include "Block.h"
+#include "Bush.h"
+#include "EvoTree.h"
+#include "Flower.h"
+#include "StartMenu.h"
+#include "Game.h"
+#include "GameMap.h"
+#include "GameOptions.h"
+#include "Player.h"
+#include "Tree.h"
+#include "Unit.h"
 
 //Function Prototypes
 void processEvents(ALLEGRO_EVENT ev, GameState *state);
@@ -36,7 +35,8 @@ int main()
 	const int HEIGHT = 100;
 	int mouseX = 0;
 	int mouseY = 0;
-	bool done = false;
+	bool done = false; 
+	bool redraw = true;		//This will prevent us from drawing things too often (only draw when timer ticks -> set to true if event is timer)
 	GameState *curState;
 	//Create Allegro variables
 	ALLEGRO_DISPLAY *display;
@@ -49,9 +49,9 @@ int main()
 	-Process .ini file -- this is where we save the data from the .ini to variables in the program
 	*/
 	if(!al_init()) return -1;
-	al_set_new_display_flags(ALLEGRO_FULLSCREEN);	//changes based on .ini
+	al_set_new_display_flags(ALLEGRO_RESIZABLE);	//changes based on .ini
 	display = al_create_display(WIDTH, HEIGHT);
-	//al_set_window_position(display,0,0);		//if windowed, then sets position to top left corner
+	al_set_window_position(display,0,0);		//if windowed, then sets position to top left corner
 
 	al_install_keyboard();
 	al_install_audio();
@@ -72,7 +72,7 @@ int main()
 	event_queue = al_create_event_queue();			//create event queue, then register all sources sp ot works
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
-	//al_register_event_source(event_queue, al_get_display_event_source(display));	//For some reason this isn't working...hm...
+	al_register_event_source(event_queue, al_get_display_event_source(display));	//For some reason this isn't working...hm...
 	al_register_event_source(event_queue, al_get_mouse_event_source());
 
 	al_reserve_samples(NUM_SAMPLES);	//reserves space for NUM_SAMPLES of samples to play at one time
@@ -84,9 +84,6 @@ int main()
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);	//waits for something to happen (timer, keyboard, mouse etc)
-		if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) done = true;
-		else processEvents(ev, curState);
-		//done = true;		//prevent inf loop
 	/*
 	Game Loop
 		-Read input
@@ -94,11 +91,12 @@ int main()
 		-Update internals
 		-Render output to screen
 	*/
+		if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) done = true;
+		else processEvents(ev, curState);
 	}
 	al_destroy_timer(timer);
 	al_destroy_event_queue(event_queue);
-	//al_destroy_display(display);
-	al_rest(1);	//Just waits to show that a black box appeared and that this works :D
+	al_destroy_display(display);
 	return 0;
 }
 
@@ -114,6 +112,12 @@ void processEvents(ALLEGRO_EVENT ev, GameState *state)
 		{
 			case ALLEGRO_KEY_A:
 				state->keyPressA();
+			case ALLEGRO_KEY_W:
+				state->keyPressW();
+			case ALLEGRO_KEY_D:
+				state->keyPressD();
+			case ALLEGRO_KEY_S:
+				state->keyPressS();
 		}
 	}
 	else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES){
