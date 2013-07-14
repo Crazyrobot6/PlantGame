@@ -64,6 +64,7 @@ Block* GameMap::getBlock(int x, int y, int z)
 
 void GameMap::draw(int camX, int camY, int camZ)
 {
+	/*	First way i did it. Drew top layer and front row/column. Didn't work when a block was under another but missing one in front
 	for(int i=0; i<(x-1); i++)	//x
 		for(int j=0; j<(y-1); j++) //y
 		{
@@ -92,6 +93,39 @@ void GameMap::draw(int camX, int camY, int camZ)
 	for(int i=0; i<x; i++)	//x
 		for(int j=y-1; j<y; j++) //y
 			for(int k=0; k<camZ; k++)
+				if(blockMap[i][j][k] != NULL)
+					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
+						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
+						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
+*/
+	//Draws all blocks that are missing a block above or in front of them
+	for(int i=0; i<x-1; i++)	//x
+		for(int j=0; j<y-1; j++) //y
+			for(int k=0; k<camZ-1; k++)//z
+				if(blockMap[i][j][k] != NULL && !(blockMap[i+1][j][k] != NULL && blockMap[i][j+1][k] != NULL && blockMap[i][j][k+1] != NULL))
+					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
+						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
+						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
+	// draws fron right row
+	for(int i=x-1; i<x; i++)	//x
+		for(int j=0; j<y-1; j++) //y
+			for(int k=0; k<camZ; k++)
+				if(blockMap[i][j][k] != NULL)
+					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
+						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
+						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
+	//draws front left row
+	for(int i=0; i<x; i++)	//x
+		for(int j=y-1; j<y; j++) //y
+			for(int k=0; k<camZ; k++)
+				if(blockMap[i][j][k] != NULL)
+					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
+						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
+						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
+	//draws bottom layer
+	for(int i=0; i<x; i++)	//x
+		for(int j=0; j<y; j++) //y
+			for(int k=camZ-1; k<camZ; k++)
 				if(blockMap[i][j][k] != NULL)
 					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
 						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
