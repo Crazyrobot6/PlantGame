@@ -9,11 +9,11 @@ GameMap::GameMap(int x, int y, int z)
 	for(int i=0; i<x; i++)	//x
 		for(int j=0; j<y; j++) //y
 		{
-			for(int k=0; k<(z-1); k++) //z
+			for(int k=0; k<(z-3); k++) //z
 			{
 				blockMap[i][j][k] = new Block(1 + rand() % 3);
 			}
-			for(int k=z-1; k<z; k++) //z
+			for(int k=z-3; k<z; k++) //z
 			{
 				if(rand() % 2 && blockMap[i][j][k-1] != NULL)
 					blockMap[i][j][k] = new Block(1 + rand() % 3);
