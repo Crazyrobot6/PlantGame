@@ -15,12 +15,12 @@ private:
 	//Images are held in GameMap
 	int blockID;				//Pretty obvious -- an ID describing what type of block it is
 	int mineralsAvailable;		//How many minerals are currently available in the soil block
-	int mineralsGivenPerTurnMax;	//How many total minerals the block gives per turn at most-- to be divided up among players
-	int mineralsGivenPerTurn;		//Amount given total to players, determined by Sigmoid(sum of numUnitRoots){0,1} * mineralsGivenPerTurnMax
+	int mineralsGivenPerTurn;		//Amount given total to players, determined by Sigmoid(sum of numUnitRoots){0,1} * mineralsAvailable
 	int mineralsReplenishedPerTurn;	//How many minerals are given to the block after each turn cycle
 	int waterAvailable;		//How much water is currently available in the soil block
-	int waterGivenPerTurn;	//How much total water the block gives per turn -- to be divided up among players
+	int waterGivenPerTurn;	//like mineralsGivenPerTurn
 	int waterReplenishedPerTurn;	//How much water is given to the block after each turn cycle
+
 	std::vector<int> numUnitRoots;	//Array of intes giving the number of roots of each unit in the block
 	//Each unit has an id, given to it at creation. Every time a unit is created, an int is added (starting at 0) for every block
 

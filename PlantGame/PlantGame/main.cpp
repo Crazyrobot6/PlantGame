@@ -32,8 +32,8 @@ int main()
 	//Create local variables
 	const int FPS = 60;
 	const int NUM_SAMPLES = 8; //number of sounds playing at one time
-	const int WIDTH = 1280;
-	const int HEIGHT = 720;
+	const int WIDTH = 1550;
+	const int HEIGHT = 880;
 	int windowWidth = WIDTH; //NOT display width. Width of the actual on screen window. Used to make mouse still work after resizing display
 	int windowHeight = HEIGHT; //^same^
 	bool done = false; 

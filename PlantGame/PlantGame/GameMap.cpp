@@ -8,10 +8,20 @@ GameMap::GameMap(int x, int y, int z)
 	this->z = z;
 	for(int i=0; i<x; i++)	//x
 		for(int j=0; j<y; j++) //y
-			for(int k=0; k<z; k++) //z
+		{
+			for(int k=0; k<(z-1); k++) //z
 			{
-				blockMap[i][j][k] = new Block(1);
+				blockMap[i][j][k] = new Block(1 + rand() % 3);
 			}
+			for(int k=z-1; k<z; k++) //z
+			{
+				if(rand() % 2 && blockMap[i][j][k-1] != NULL)
+					blockMap[i][j][k] = new Block(1 + rand() % 3);
+				else
+					blockMap[i][j][k] = NULL;
+			}
+		}
+
 	blockImages[0] = al_load_bitmap("Bitmaps/Soil1.bmp");
 	blockImages[1] = al_load_bitmap("Bitmaps/Soil2.bmp");
 	blockImages[2] = al_load_bitmap("Bitmaps/Soil3.bmp");
@@ -54,12 +64,38 @@ Block* GameMap::getBlock(int x, int y, int z)
 
 void GameMap::draw(int camX, int camY, int camZ)
 {
-	for(int i=0; i<x; i++)	//x
-		for(int j=0; j<y; j++) //y
-			for(int k=0; k<camZ; k++) //z
+	for(int i=0; i<(x-1); i++)	//x
+		for(int j=0; j<(y-1); j++) //y
+		{
+			bool drawn = false;
+			int tempZ = camZ-1;
+			while(!drawn)
 			{
-				al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
-					camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-					camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-(k*(blockPerceivedHeight-4)),0);
+				if(blockMap[i][j][tempZ] != NULL)
+				{
+					al_draw_bitmap(blockImages[blockMap[i][j][tempZ]->getBitmap()],
+						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
+						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((tempZ)*(blockPerceivedHeight-4)),0);
+					drawn = true;
+				}else
+					tempZ -= 1;
 			}
+		}
+	for(int i=x-1; i<x; i++)	//x
+		for(int j=0; j<y-1; j++) //y
+			for(int k=0; k<camZ; k++)
+				if(blockMap[i][j][k] != NULL)
+					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
+						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
+						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
+	
+	for(int i=0; i<x; i++)	//x
+		for(int j=y-1; j<y; j++) //y
+			for(int k=0; k<camZ; k++)
+				if(blockMap[i][j][k] != NULL)
+					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
+						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
+						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
+
+				
 }
