@@ -50,6 +50,7 @@ int main()
 	-Process .ini file -- this is where we save the data from the .ini to variables in the program
 	*/
 	if(!al_init()) return -1;
+
 	al_set_new_display_flags(ALLEGRO_RESIZABLE);	//changes based on .ini
 	display = al_create_display(WIDTH, HEIGHT);
 	al_set_window_position(display,0,0);		//if windowed, then sets position to top left corner
@@ -116,7 +117,7 @@ int main()
 				}
 				redraw = true;		//redraw goes to true every 1/60th sec, makes rendering smooth
 				break;
-			case ALLEGRO_EVENT_KEY_DOWN:
+			case ALLEGRO_EVENT_KEY_DOWN:	//If a key gets pressed down (NOT if a key IS down, only happens when it is first pressed down)
 				processKeyDown(ev, curState);
 				break;
 			case ALLEGRO_EVENT_MOUSE_AXES:
@@ -134,7 +135,9 @@ int main()
 			al_clear_to_color(al_map_rgb(0,0,0));
 		}
 	}
-	al_destroy_timer(timer);
+	//Game loop over, do stuff that needs to get done before exiting
+	delete curState;
+	al_destroy_timer(timer);				//delete everything
 	al_destroy_event_queue(event_queue);
 	al_destroy_display(display);
 	return 0;
@@ -144,7 +147,7 @@ void processKeyDown(ALLEGRO_EVENT ev, GameState *state)
 {
 	switch(ev.keyboard.keycode)
 	{
-	case ALLEGRO_KEY_A:
+	case ALLEGRO_KEY_A:		//all this is self explanatory
 		state->keyPressA();
 		break;
 	case ALLEGRO_KEY_W:

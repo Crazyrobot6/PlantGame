@@ -3,6 +3,25 @@
 
 Block::Block(int id)	//Initializes values minearls/water based on ID passed
 {
+	blockID = id;
+	switch(id)
+	{
+	case 1:
+		mineralsAvailable = 250;
+		mineralsGivenPerTurnMax = 200;
+		mineralsGivenPerTurn = 0;	//No roots yet, so none given
+		mineralsReplenishedPerTurn = 100;
+		waterAvailable = 100;
+		waterGivenPerTurn = 50;
+		waterReplenishedPerTurn = 30;
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	}
 }
 
 Block::~Block()	//Does whatever garbage collection is needed
@@ -14,7 +33,7 @@ ALLEGRO_BITMAP* Block::getBitmap()	//Returns the bitmap so the block can be draw
 	return images[blockID];
 }
 
-double Block::givePlayerMinerals(int unitNum)	//See function definition for explanation
+double Block::giveUnitMinerals(int unitID)	//See function definition for explanation
 {
 	/*	
 		Each player will be assigned a number
@@ -25,15 +44,15 @@ double Block::givePlayerMinerals(int unitNum)	//See function definition for expl
 		The materials will be given to the player like this:
 		Player.addMinerals(someBlock.givePlayerMinerals(Player.getPlayerNumber()));
 	*/
-	double percentage = numUnitRoots[unitNum];
+	double percentage = numUnitRoots[unitID];
 	double amountToGive = percentage * mineralsGivenPerTurn;
 	mineralsAvailable -= amountToGive;
 	return amountToGive;
 }
 
-double Block::givePlayerWater(int unitNum)
+double Block::giveUnitWater(int unitID)
 {
-	double percentage = numUnitRoots[unitNum];
+	double percentage = numUnitRoots[unitID];
 	double amountToGive = percentage * waterGivenPerTurn;
 	waterAvailable -= amountToGive;
 	return amountToGive;

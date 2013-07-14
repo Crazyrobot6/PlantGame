@@ -57,6 +57,8 @@ void Game::draw()
 {
 	//map->draw();	//draws map
 	al_draw_rectangle(100, 100, 200, 200, al_map_rgb(0,255,0), 20);
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press A to toggle through Game States");
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the game.");
 }
 
 void Game::keyPressA()

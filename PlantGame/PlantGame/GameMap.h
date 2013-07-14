@@ -8,7 +8,8 @@ enum CAMERA_ANGLES {NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST};
 class GameMap
 {
 private:
-	std::vector<std::vector<std::vector<Block*>>> blockMap;	//Three dimensional game-world map
+	Block *blockMap[10][10][5];	//Three dimensional game-world map
+				//For now this is a 10x10x5 array to make it easier
 	int x;	//Dimension along the east-west axis
 	int y;	//Dimension along the north-south axis
 	int z;	//Dimension along the up-down axis
