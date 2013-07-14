@@ -8,6 +8,7 @@ Game::Game()
 	numberOfPlayers = 0;	//starts at zero, incrememnts with calls of addPlayer()
 	gameTime = 0;
 	turnsTaken = 0;
+	done = false;
 }
 
 Game::~Game()
@@ -45,6 +46,8 @@ int Game::getGameTime()
 int Game::update()
 {
 	gameTime++;
+	if(done)
+		return 2;
 	return -1;
 }
 
@@ -56,6 +59,7 @@ void Game::draw()
 
 void Game::keyPressA()
 {
+	done = true;
 }
 
 void Game::keyPressD()

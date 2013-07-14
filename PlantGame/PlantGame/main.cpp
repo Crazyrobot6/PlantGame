@@ -34,8 +34,8 @@ int main()
 	const int NUM_SAMPLES = 8; //number of sounds playing at one time
 	const int WIDTH = 500;
 	const int HEIGHT = 500;
-	int mouseX = 0;
-	int mouseY = 0;
+	int windowWidth = WIDTH; //NOT display width. Width of the actual on screen window. Used to make mouse still work after resizing display
+	int windowHeight = HEIGHT; //^same^
 	bool done = false; 
 	bool redraw = true;		//This will prevent us from drawing things too often (only draw when timer ticks -> set to true if event is timer)
 	GameState *curState;
@@ -50,11 +50,11 @@ int main()
 	-Process .ini file -- this is where we save the data from the .ini to variables in the program
 	*/
 	if(!al_init()) return -1;
-	display = al_create_display(WIDTH, HEIGHT);//If you don't create it before setting the flags, the display window will be misshapen
-	al_destroy_display(display);//prevent memory leakage of the temporaray display
 	al_set_new_display_flags(ALLEGRO_RESIZABLE);	//changes based on .ini
 	display = al_create_display(WIDTH, HEIGHT);
 	al_set_window_position(display,0,0);		//if windowed, then sets position to top left corner
+	al_resize_display(display, WIDTH, HEIGHT);	//<-DONT DELETE This makes the mouse owrk how it should and makes it so that
+												//the size of the window works how you would expect.
 
 	al_install_keyboard();
 	al_install_audio();
@@ -69,7 +69,7 @@ int main()
 	Initialize Allegro components
 	load bitmaps, audio, font, etc
 	*/
-	curState = new StartMenu();
+	curState = new StartMenu();	//sets first state to start menu
 
 	timer = al_create_timer(1.0/FPS);
 	event_queue = al_create_event_queue();			//create event queue, then register all sources sp ot works
@@ -79,39 +79,54 @@ int main()
 	al_register_event_source(event_queue, al_get_mouse_event_source());
 
 	al_reserve_samples(NUM_SAMPLES);	//reserves space for NUM_SAMPLES of samples to play at one time
-	//Set state to start menu
-	
 
 	al_start_timer(timer);	//starts right before game loop does to keep timing happy
+	//------------------------------------------------------------------------------------------------------------------------------------------------\\
+	//=================================================================================================================================================|>
+	//------------------------------------------------------------------------------------------------------------------------------------------------//
 	while(!done)
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);	//waits for something to happen (timer, keyboard, mouse etc)
-	/*
-	Game Loop
-		-Read input
-		-Process input
-		-Update internals
-		-Render output to screen
-	*/
-		if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) done = true;
-		else if(ev.type == ALLEGRO_EVENT_TIMER)
+		/*
+		Game Loop
+			-Read input
+			-Process input
+			-Update internals
+			-Render output to screen
+		*/
+		switch(ev.type)
 		{
-			if(curState->update() == 1)
-			{
-				delete curState;
-				curState = new Game();
-				//changeState(curState->update(), curState); //changes state, but lets the current one update one more time
-			}
-			redraw = true;
+			case ALLEGRO_EVENT_DISPLAY_CLOSE:	//If the red X is pressed
+				done = true;
+				break;
+			case ALLEGRO_EVENT_TIMER:			//Timer ticks (happens 60 times/sec)
+				switch(curState->update())		//updates game and checks to see if it needs to change state
+				{
+					case -1:					//If -1 (usually will be), breaks so it doesn't go through all other cases
+						break;
+					case 1://go into game
+						delete curState;		//prevent memory leakaage, deletes old GameState
+						curState = new Game();	
+						break;
+					case 2://go to start menu
+						delete curState;
+						curState = new StartMenu();
+						break;
+				}
+				redraw = true;		//redraw goes to true every 1/60th sec, makes rendering smooth
+				break;
+			case ALLEGRO_EVENT_KEY_DOWN:
+				processKeyDown(ev, curState);
+				break;
+			case ALLEGRO_EVENT_MOUSE_AXES:
+				curState->setMousePos((ev.mouse.x * WIDTH) / windowWidth, (ev.mouse.y * HEIGHT) / windowHeight);
+				break;
+			case ALLEGRO_EVENT_DISPLAY_RESIZE:
+				windowWidth = ev.display.width;
+				windowHeight = ev.display.height;
+				break;
 		}
-		else if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
-		{
-			processKeyDown(ev, curState);
-		}
-		else if(ev.type == ALLEGRO_EVENT_MOUSE_AXES)
-			curState->setMousePos(ev.mouse.x, ev.mouse.y);
-
 		if(redraw & al_is_event_queue_empty(event_queue))
 		{
 			curState->draw();
@@ -124,7 +139,7 @@ int main()
 	al_destroy_display(display);
 	return 0;
 }
-
+//###############################################################################################################
 void processKeyDown(ALLEGRO_EVENT ev, GameState *state)
 {
 	switch(ev.keyboard.keycode)

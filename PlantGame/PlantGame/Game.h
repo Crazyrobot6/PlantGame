@@ -15,7 +15,8 @@ private:
 	GameOptions* options;	//Object that encapsulates all in-game options like fog of war, etc.
 	int turnsTaken;	//The number of total turns taken in the game; increments once every time the game cycles through all the players
 	int gameTime;	//Maybe this won't be an int, but this will be some variable that holds how long (real-time) the game has been running
-        
+    bool done;
+
 public:
 	Game();	//Does initialization, haven't thought through what arguments it might need
 	~Game();	//Garbage collection
