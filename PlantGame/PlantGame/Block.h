@@ -12,8 +12,8 @@ const int MAX_PLAYERS = 8;
 class Block
 {
 private:
+	//Images are held in GameMap
 	int blockID;				//Pretty obvious -- an ID describing what type of block it is
-	ALLEGRO_BITMAP* images[NUM_SOIL_TYPES];		//File path for the corresponding bitmap image
 	int mineralsAvailable;		//How many minerals are currently available in the soil block
 	int mineralsGivenPerTurnMax;	//How many total minerals the block gives per turn at most-- to be divided up among players
 	int mineralsGivenPerTurn;		//Amount given total to players, determined by Sigmoid(sum of numUnitRoots){0,1} * mineralsGivenPerTurnMax
@@ -27,8 +27,8 @@ private:
 public:
 	Block(int id);	//Initializes values minearls/water based on ID passed
 	~Block();	//Does whatever garbage collection is needed
-	ALLEGRO_BITMAP* getBitmap();	//Returns the bitmap so the block can be drawn	//Maybe do a Render(int x, int y) instead of getBitmap()??
-	//either here or in GameMap, we need to add functionality to draw the unit on top of the block right after drawing that block
+	void initImages();	//This way images won't get initialzied every time a Block is created
+	int getBitmap();	//Returns the bitmap so the block can be drawn
 
 	void addRoots(int unitID);
 	void growRoots(int unitID, int amtGrown);

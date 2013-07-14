@@ -108,7 +108,7 @@ int main()
 						break;
 					case 1://go into game
 						delete curState;		//prevent memory leakaage, deletes old GameState
-						curState = new Game();	
+						curState = new Game();
 						break;
 					case 2://go to start menu
 						delete curState;

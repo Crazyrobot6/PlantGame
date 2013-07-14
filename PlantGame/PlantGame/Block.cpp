@@ -28,9 +28,9 @@ Block::~Block()	//Does whatever garbage collection is needed
 {
 }
 
-ALLEGRO_BITMAP* Block::getBitmap()	//Returns the bitmap so the block can be drawn
+int Block::getBitmap()	//Returns the bitmap so the block can be drawn
 {
-	return images[blockID];
+	return blockID;
 }
 
 double Block::giveUnitMinerals(int unitID)	//See function definition for explanation
