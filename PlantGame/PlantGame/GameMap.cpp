@@ -18,6 +18,9 @@ GameMap::GameMap(int x, int y, int z)
 	blockImages[3] = al_load_bitmap("Bitmaps/Soil4.bmp");
 	for(int i=0;i<NUM_SOIL_TYPES;i++)
 		al_convert_mask_to_alpha(blockImages[i], al_map_rgb(255,0,255)); //converts hideous magenta to transparent
+	blockWidth = al_get_bitmap_width(blockImages[0]);
+	blockHeight = al_get_bitmap_height(blockImages[0])-1;	//-1 because image is a little off
+	blockPerceivedHeight = 32;
 }
 
 GameMap::~GameMap()
@@ -49,7 +52,14 @@ Block* GameMap::getBlock(int x, int y, int z)
 	return blockMap[x][y][z];
 }
 
-void GameMap::draw()
+void GameMap::draw(int camX, int camY, int camZ)
 {
-	al_draw_bitmap(blockImages[blockMap[0][0][0]->getBitmap()], 250,250,0);
+	for(int i=0; i<x; i++)	//x
+		for(int j=0; j<y; j++) //y
+			for(int k=0; k<camZ; k++) //z
+			{
+				al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
+					camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
+					camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-(k*blockPerceivedHeight),0);
+			}
 }

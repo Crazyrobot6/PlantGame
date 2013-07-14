@@ -24,13 +24,12 @@ int StartMenu::update()
 void StartMenu::draw()
 {
 	al_draw_rectangle(mouseX-5, mouseY-5, mouseX+5, mouseY+5, al_map_rgb(255,0,0), 5);	//testing
-	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press A to toggle through Game States");
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press Space to toggle through Game States");
 	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the start menu.");
 }
 
 void StartMenu::keyPressA()
 {
-	startGame = true;	//testing purposes. Pressing A starts the game
 }
 
 void StartMenu::keyPressD()
@@ -43,4 +42,9 @@ void StartMenu::keyPressS()
 
 void StartMenu::keyPressW()
 {
+}
+
+void StartMenu::keyPressSpace()
+{
+	startGame = true;	//testing purposes. Pressing A starts the game
 }

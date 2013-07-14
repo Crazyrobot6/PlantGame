@@ -19,4 +19,5 @@ public:
 	void keyPressD();
 	void keyPressS();
 	void keyPressW();
+	void keyPressSpace();
 };

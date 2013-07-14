@@ -9,6 +9,9 @@
 class Game : public GameState
 {
 private:
+	int camX;	//eventually, these will have to be in Player class
+	int camY;
+	int camZ;
 	std::vector<Player*> players;	//Vector holding all players currently in the game
 	int numberOfPlayers;	//The number of players in the game
 	GameMap* map;	//The map the game is being played on
@@ -28,6 +31,7 @@ public:
 	void keyPressD();
 	void keyPressS();
 	void keyPressW();
+	void keyPressSpace();
 
 	//These are unaccessable unless they become members of GameState, so instead, let's do these functions through
 	//keyPressA() and those types of fncts
