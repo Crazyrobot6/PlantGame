@@ -32,6 +32,7 @@ public:
 	void keyPressS();
 	void keyPressW();
 	void keyPressSpace();
+	void scroll(int dz);
 
 	//These are unaccessable unless they become members of GameState, so instead, let's do these functions through
 	//keyPressA() and those types of fncts

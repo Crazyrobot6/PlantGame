@@ -88,3 +88,13 @@ void Game::keyPressSpace()
 {
 	done = true;
 }
+
+void Game::scroll(int dz)
+{
+	camZ += dz;			//camZ changes by whatever the mousewheel changed by
+	if(camZ < 0)
+		camZ = 0;		//These are
+	else if(camZ > 5)		//to keep camZ in bounds
+		camZ = 5;
+	else camY += dz * -32;	//to make it look like the blocks are actually going on top of eachother
+}

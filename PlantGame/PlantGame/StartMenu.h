@@ -20,4 +20,5 @@ public:
 	void keyPressS();
 	void keyPressW();
 	void keyPressSpace();
+	void scroll(int dz);
 };

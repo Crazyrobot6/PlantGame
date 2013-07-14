@@ -48,3 +48,7 @@ void StartMenu::keyPressSpace()
 {
 	startGame = true;	//testing purposes. Pressing A starts the game
 }
+
+void StartMenu::scroll(int dz)
+{
+}

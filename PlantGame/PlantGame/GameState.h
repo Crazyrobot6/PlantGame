@@ -25,6 +25,7 @@ public:
 	void virtual keyPressS() {}
 	void virtual keyPressW() {}
 	void virtual keyPressSpace() {}
+	void virtual scroll(int dz) {}
 
 	void virtual draw() {}	//Magical function that draws everything in-game to the screen
 	int virtual update() {return -1;}	//This gets called every sixtieth of a second to process non-graphical things like:

@@ -122,6 +122,7 @@ int main()
 				break;
 			case ALLEGRO_EVENT_MOUSE_AXES:
 				curState->setMousePos((ev.mouse.x * WIDTH) / windowWidth, (ev.mouse.y * HEIGHT) / windowHeight);
+				curState->scroll(ev.mouse.dz);	//dz is the change in scroll wheel position
 				break;
 			case ALLEGRO_EVENT_DISPLAY_RESIZE:
 				windowWidth = ev.display.width;
@@ -132,7 +133,7 @@ int main()
 		{
 			curState->draw();
 			al_flip_display();
-			al_clear_to_color(al_map_rgb(0,0,0));
+			al_clear_to_color(al_map_rgb(30,30,30));
 		}
 	}
 	//Game loop over, do stuff that needs to get done before exiting
