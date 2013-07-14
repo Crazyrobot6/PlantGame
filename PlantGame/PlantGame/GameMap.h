@@ -8,8 +8,8 @@ enum CAMERA_ANGLES {NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST};
 class GameMap
 {
 private:
-	Block *blockMap[10][10][5];	//Three dimensional game-world map
-				//For now this is a 10x10x5 array to make it easier
+	Block *blockMap[10][10][8];	//Three dimensional game-world map
+				//For now this is a 10x10x8 array to make it easier
 	ALLEGRO_BITMAP *blockImages[NUM_SOIL_TYPES];
 	int blockWidth;		//the width of the image
 	int blockHeight;	//the height of the image

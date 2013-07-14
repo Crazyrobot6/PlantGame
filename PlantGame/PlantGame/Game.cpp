@@ -10,10 +10,10 @@ Game::Game()
 	turnsTaken = 0;
 	font36 = al_load_ttf_font("Fonts/A_Sensible_Armadillo.ttf", 36, 0);
 	done = false;
-	map = new GameMap(10,10,5);
+	map = new GameMap(10,10,8);
 	camX = 0;
 	camY = 0;
-	camZ = 3;
+	camZ = 8;
 }
 
 Game::~Game()
@@ -94,7 +94,7 @@ void Game::scroll(int dz)
 	camZ += dz;			//camZ changes by whatever the mousewheel changed by
 	if(camZ < 1)
 		camZ = 1;		//These are
-	else if(camZ > 5)		//to keep camZ in bounds
-		camZ = 5;
+	else if(camZ > 8)		//to keep camZ in bounds
+		camZ = 8;
 	else camY += dz * -32;	//to make it look like the blocks are actually going on top of eachother
 }
