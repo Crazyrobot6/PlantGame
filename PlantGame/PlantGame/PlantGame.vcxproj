@@ -87,6 +87,7 @@
     <None Include="Bitmaps\Tree1.bmp" />
     <None Include="Bitmaps\Tree2.bmp" />
     <None Include="Bitmaps\Tree3.bmp" />
+    <None Include="Fonts\A_Sensible_Armadillo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />

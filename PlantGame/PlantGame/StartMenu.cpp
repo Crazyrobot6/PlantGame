@@ -6,10 +6,12 @@ StartMenu::StartMenu()
 	mouseX = 0;
 	mouseY = 0;
 	startGame = false;	//controls when to start the game and go into the game
+	font36 = al_load_ttf_font("Fonts/A_Sensible_Armadillo.ttf", 36, 0);
 }
 
 StartMenu::~StartMenu()
 {
+	al_destroy_font(font36);
 }
 
 int StartMenu::update()
@@ -22,6 +24,7 @@ int StartMenu::update()
 void StartMenu::draw()
 {
 	al_draw_rectangle(mouseX-5, mouseY-5, mouseX+5, mouseY+5, al_map_rgb(255,0,0), 5);	//testing
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press A to toggle through Game States");
 }
 
 void StartMenu::keyPressA()

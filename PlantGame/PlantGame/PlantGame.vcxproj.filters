@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\Bitmaps">
       <UniqueIdentifier>{a7251a29-c427-4694-bd6a-519374939f04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Fonts">
+      <UniqueIdentifier>{1d3cbf79-a8b7-41d9-a84f-285668ddb816}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -91,6 +94,9 @@
     </None>
     <None Include="Bitmaps\Tree3.bmp">
       <Filter>Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="Fonts\A_Sensible_Armadillo.ttf">
+      <Filter>Resource Files\Fonts</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

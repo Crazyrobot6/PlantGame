@@ -8,6 +8,7 @@ Game::Game()
 	numberOfPlayers = 0;	//starts at zero, incrememnts with calls of addPlayer()
 	gameTime = 0;
 	turnsTaken = 0;
+	font36 = al_load_ttf_font("Fonts/A_Sensible_Armadillo.ttf", 36, 0);
 	done = false;
 }
 
@@ -15,6 +16,7 @@ Game::~Game()
 {
 	delete map;
 	delete options;
+	al_destroy_font(font36);
 }
 
 void Game::addPlayer(Player* newPlayer)
