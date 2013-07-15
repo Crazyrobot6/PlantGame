@@ -13,8 +13,6 @@ private:
 	std::string playerName;
 	int playerNumber;
 	int score;
-	double playerMinerals;
-	double playerWater;
 	std::vector<Unit*> playersUnits;
 	EvoTree* evoTree;
 
@@ -25,12 +23,6 @@ public:
 	std::string getName();	//Returns the player's name
 	void addToScore(int points);	//Increases the player's score by the value passed to the function 
 	int getScore();	//Returns the player's current score
-	void giveMinerals(double amount);	//Increases the amount of minerals the player currently has
-	double getCurrentMinerals();	//Returns the current amount of minerals the player has
-	void subtractMinerals(double amount);	//Deducts minerals from the playe's total
-	void giveWater(double amount);	//Increases the amount of water the player currently has
-	double getCurrentWater();	//Returns the amount of water the player currently has
-	void subtractWater(double amount);	//Decreases the amount of water the player has
 	std::vector<Unit*> getUnits();	//Returns the vector holding the player's units
 	EvoTree* getEvoTree();	//Returns the player's evolution tree
 };

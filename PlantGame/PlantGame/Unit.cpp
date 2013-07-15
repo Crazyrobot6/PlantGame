@@ -9,6 +9,11 @@ Unit::~Unit()
 {
 }
 
+int Unit::getID()
+{
+	return unitID;
+}
+
 int Unit::getCurrentHitPoints()
 {
 	return hitPoints;
@@ -39,23 +44,14 @@ Player* Unit::getOwner()
 	return owner;
 }
 
-int Unit::getDefense()
+int Unit::getResilience()
 {
-	return defense;
+	return resilience;
 }
 
 int Unit::produceSeeds()
 {
-	if (turnsUntilSeeds > 0)
-	{
-		turnsUntilSeeds--;
-		return 0;
-	}
-	else
-	{
-		//Give turnsUntilSeeds some non-zero value
-		return seeds;
-	}
+	return 0;
 }
 
 void Unit::addBlock(Block* newBlock)
@@ -66,4 +62,5 @@ void Unit::addBlock(Block* newBlock)
 void Unit::removeBlock(Block* blockToRemove)
 {
 	//Erase the block from the vector of owned blocks
+	//akin to roots dying
 }

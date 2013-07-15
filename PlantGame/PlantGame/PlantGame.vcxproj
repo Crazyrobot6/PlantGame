@@ -70,6 +70,7 @@
     <ClCompile Include="GameOptions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Seed.cpp" />
     <ClCompile Include="StartMenu.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Unit.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="GameOptions.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Seed.h" />
     <ClInclude Include="StartMenu.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Unit.h" />

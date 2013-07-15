@@ -19,6 +19,7 @@
 #include "GameMap.h"
 #include "GameOptions.h"
 #include "Player.h"
+#include "Seed.h"
 #include "Tree.h"
 #include "Unit.h"
 

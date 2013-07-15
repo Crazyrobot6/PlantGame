@@ -56,7 +56,7 @@ void GameMap::setBlocks(std::vector<std::vector<std::vector<Block*>>>* newMap)
 	//and stores the vector to which it points
 	blockMap = *newMap;
 }
-*/ //Implement this later, but for now imma comment it out so it doesn't confuse me ;D
+*/ //^Implement this later, but for now imma comment it out so it doesn't confuse me ;D
 Block* GameMap::getBlock(int x, int y, int z)
 {
 	return blockMap[x][y][z];
@@ -72,7 +72,7 @@ void GameMap::draw(int camX, int camY, int camZ)
 					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
 						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
 						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
-	// draws fron right row
+	// draws front right row
 	for(int i=x-1; i<x; i++)	//x
 		for(int j=0; j<y-1; j++) //y
 			for(int k=0; k<camZ; k++)
@@ -95,7 +95,5 @@ void GameMap::draw(int camX, int camY, int camZ)
 				if(blockMap[i][j][k] != NULL)
 					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
 						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
-
-				
+						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);			
 }
