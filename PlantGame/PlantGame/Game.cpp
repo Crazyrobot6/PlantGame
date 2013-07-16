@@ -5,11 +5,10 @@ Game::Game()
 {
 	mouseX = 0;
 	mouseY = 0;
-	numberOfPlayers = 0;	//starts at zero, incrememnts with calls of addPlayer()
 	gameTime = 0;
 	turnsTaken = 0;
 	font36 = al_load_ttf_font("Fonts/A_Sensible_Armadillo.ttf", 36, 0);
-	done = false;
+	exitToStart = false;
 	map = new GameMap(10,10,8);
 	camX = 0;
 	camY = 0;
@@ -26,7 +25,6 @@ Game::~Game()
 void Game::addPlayer(Player* newPlayer)
 {
 	players.push_back(newPlayer);
-	numberOfPlayers++;
 }
 /*
 void Game::setMap(GameMap* newMap)
@@ -52,7 +50,7 @@ int Game::getGameTime()
 int Game::update()
 {
 	gameTime++;
-	if(done)
+	if(exitToStart)
 		return 2;
 	return -1;
 }
@@ -60,8 +58,9 @@ int Game::update()
 void Game::draw()
 {
 	map->draw(camX,camY,camZ);	//draws map
-	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press Space to toggle through Game States");
-	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the game.");
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press Space to go back to the start menu");
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the GAME.");
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,95,0, "Use WASD and scroll");
 }
 
 void Game::keyPressA()
@@ -86,7 +85,7 @@ void Game::keyPressW()
 
 void Game::keyPressSpace()
 {
-	done = true;
+	exitToStart = true;
 }
 
 void Game::scroll(int dz)
@@ -97,4 +96,14 @@ void Game::scroll(int dz)
 	else if(camZ > 8)		//to keep camZ in bounds
 		camZ = 8;
 	else camY += dz * -32;	//to make it look like the blocks are actually going on top of eachother
+}
+
+bool Game::readFromTemp()
+{
+	//reads stuff from the temp file
+	return false;
+}
+
+void Game::deleteTempFile()
+{
 }

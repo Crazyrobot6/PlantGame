@@ -10,15 +10,18 @@ class Game : public GameState
 {
 private:
 	int camX;	//Each player will have their own game class, so these variables can be in the Game class
-	int camY;
+	int camY;	//argggg, Imma pirate!!
 	int camZ;
 	std::vector<Player*> players;	//Vector holding all players currently in the game
-	int numberOfPlayers;	//The number of players in the game
 	GameMap* map;	//The map the game is being played on
 	GameOptions* options;	//Object that encapsulates all in-game options like fog of war, etc.
 	int turnsTaken;	//The number of total turns taken in the game; increments once every time the game cycles through all the players
 	int gameTime;	//Maybe this won't be an int, but this will be some variable that holds how long (real-time) the game has been running
-    bool done;
+    bool exitToStart;
+
+	bool readFromTemp();	//Reads GameLobby info from temp file. Returns true if it works
+							//Reads first bool, then reads file differently based on whther host comp or not (see GameLobby's writeTempFile())
+	void deleteTempFile();	//Deletes temp file after successfully reading it
 
 public:
 	Game();	//Does initialization, haven't thought through what arguments it might need

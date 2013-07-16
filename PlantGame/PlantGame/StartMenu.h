@@ -6,7 +6,7 @@
 class StartMenu : public GameState
 {
 private:
-	bool startGame;
+	bool makeLobby;
         
 public:
 	StartMenu();	//Does initialization, haven't thought through what arguments it might need

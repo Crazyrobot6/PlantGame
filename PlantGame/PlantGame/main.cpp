@@ -16,6 +16,7 @@
 #include "Flower.h"
 #include "StartMenu.h"
 #include "Game.h"
+#include "GameLobby.h"
 #include "GameMap.h"
 #include "GameOptions.h"
 #include "Player.h"
@@ -107,13 +108,17 @@ int main()
 				{
 					case -1:					//If -1 (usually will be), breaks so it doesn't go through all other cases
 						break;
-					case 1://go into game
+					case 1://start GameLobby()
 						delete curState;		//prevent memory leakaage, deletes old GameState
-						curState = new Game();
+						curState = new GameLobby();
 						break;
 					case 2://go to start menu
 						delete curState;
 						curState = new StartMenu();
+						break;
+					case 3://Go from lobby into game
+						delete curState;
+						curState = new Game();
 						break;
 				}
 				redraw = true;		//redraw goes to true every 1/60th sec, makes rendering smooth

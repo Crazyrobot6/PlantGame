@@ -66,6 +66,7 @@
     <ClCompile Include="EvoTree.cpp" />
     <ClCompile Include="Flower.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameLobby.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameOptions.cpp" />
     <ClCompile Include="main.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="EvoTree.h" />
     <ClInclude Include="Flower.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameLobby.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameOptions.h" />
     <ClInclude Include="GameState.h" />
