@@ -9,7 +9,7 @@
 class Game : public GameState
 {
 private:
-	int camX;	//eventually, these will have to be in Player class
+	int camX;	//Each player will have their own game class, so these variables can be in the Game class
 	int camY;
 	int camZ;
 	std::vector<Player*> players;	//Vector holding all players currently in the game
