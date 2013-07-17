@@ -28,10 +28,6 @@ int Player::getScore()
 {
 	return score;
 }
-std::vector<Unit*> Player::getUnits()
-{
-	return playersUnits;
-}
 
 EvoTree* Player::getEvoTree()
 {

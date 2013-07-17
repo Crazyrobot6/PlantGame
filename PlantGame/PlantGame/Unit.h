@@ -4,14 +4,14 @@
 #include "Block.h"
 #include "Player.h"
 
-enum UNIT_CLASSES {FLOWER, BUSH, TREE};
-
 class Player;
+enum UNIT_CLASSES {TREE, BUSH, FLOWER};
 
 class Unit
 {
-private:
-	int unitID;
+protected:
+	int classID;	//Determines whether the unit is a flower, bush, or tree
+	int unitID;		//The ID for this plant. different for EVERY unit on the map
 	int hitPoints;	//Number of hitpoints the unit has
 	int maxHitPoints;	//Max hp of a unit
 	int level;		//Level of plant. Increases with mineral surplus
@@ -27,24 +27,21 @@ private:
 	int waterStored;	//same^
 	int waterPercentGrowth; //{0,100} Percent of water to be put toward growing, rest goes towards making seeds
 	int mineralPercentGrowth; //{0,100} Percent of minerals to be put toward growing, rest goes towards making seeds
-	
-protected:
-	int classID;	//Determines whether the unit is a flower, bush, or tree
 
 public:
-	Unit();	//Initialization
-	~Unit();	//Garbage collection
-	int getID();
-	int getCurrentHitPoints();	//Returns the plant's current hit points
-	void restoreHitPoints(int amount);	//Restores a given amount of the plant's hit points
-	void subtractHitPoints(int amount);	//Removes a given amount of the plant's hit points
-	int getMaxHitPoints();	//Returns the max hp of the plant
-	void setOwner(Player* newOwner);	//Sets the player who owns the plant
-	Player* getOwner();	//Returns the owner of the plant
-	int getResilience();	//Returns the defense stat of the plant
-	int produceSeeds();	//Decrements turnsUntilSeeds or produces seeds if turnsUntilSeeds equals 0, in which case turnsUntilSeeds is reset
+	Unit() {classID = TREE;}	//Initialization
+	~Unit() {}	//Garbage collection
+	int getID() {return unitID;}
+	int getClass() {return classID;}
+	int getSize() {return level;}
+	int getCurrentHitPoints() {return hitPoints;}	//Returns the plant's current hit points
+	int getMaxHitPoints() {return maxHitPoints;}	//Returns the max hp of the plant
+	void setOwner(Player* newOwner) {owner = newOwner;}	//Sets the player who owns the plant
+	Player* getOwner() {return owner;}	//Returns the owner of the plant
+	int getResilience() {return resilience;}	//Returns the defense stat of the plant
+	int produceSeeds() {return 0;}	//Decrements turnsUntilSeeds or produces seeds if turnsUntilSeeds equals 0, in which case turnsUntilSeeds is reset
 				//This way we can call produceSeeds() for all of a player's plants rather than
 				//checking to see if they are ready to produce seeds
-	void addBlock(Block* newBlock);	//Adds another block to the list of blocks the plant posesses
-	void removeBlock(Block* blockToRemove);	//Removes a block from the plant's ownership
+	void addBlock(Block* newBlock) {ownedBlocks.push_back(newBlock);}	//Adds another block to the list of blocks the plant posesses
+	void removeBlock(Block* blockToRemove) {}	//Removes a block from the plant's ownership
 };

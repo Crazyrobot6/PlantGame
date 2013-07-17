@@ -20,6 +20,13 @@ Game::~Game()
 	delete options;
 	al_destroy_font(font36);
 }
+
+void Game::addMap(GameMap* newMap)
+{
+	map = newMap;
+	map->addUnit(0,0,0);
+	map->addUnit(1,5,1);
+}
 //===========================================================================================================
 /*
 void Game::setMap(GameMap* newMap)

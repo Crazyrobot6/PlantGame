@@ -5,6 +5,9 @@
 #include "GameMap.h"
 #include "GameOptions.h"
 #include "GameState.h"
+#include "Tree.h"
+#include "Flower.h"
+#include "Bush.h"
 
 class Game : public GameState
 {
@@ -20,6 +23,8 @@ private:
 public:
 	Game();	//Does initialization, haven't thought through what arguments it might need
 	~Game();	//Garbage collection
+	
+	void addMap(GameMap* newMap); //adds vector of players to the class
 
 	void keyPressA();
 	void keyPressD();

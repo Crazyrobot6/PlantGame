@@ -5,15 +5,21 @@
 #include "Player.h"
 
 enum CAMERA_ANGLES {NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST};
+const int NUM_UNIT_TYPES = 2;	//num of units with images
+const int NUM_IMAGES_PER_UNIT = 3;	//Number of images each unit has (sapling, budding, full-grown would be 3)
 
 class GameMap
 {
 private:
-	int numPlayers;		//Number of players that fit on this map
+	unsigned int numPlayers;		//Number of players that fit on this map
 	std::vector<Player*> players;	//The players in this game
 	Block *blockMap[10][10][8];	//Three dimensional game-world map
 				//For now this is a 10x10x8 array to make it easier
 	ALLEGRO_BITMAP *blockImages[NUM_SOIL_TYPES];
+	ALLEGRO_BITMAP* unitImages[NUM_UNIT_TYPES][NUM_IMAGES_PER_UNIT];
+	Unit* unitsOnMap[10][10]; //pointers to the units on the map so that game map has easier time knowing where/if units are
+							  //updates when units are added
+							  //possibly a better way to do this?
 	int blockWidth;		//the width of the image
 	int blockHeight;	//the height of the image
 	int blockPerceivedHeight;	//the height that the block looks like it has in the image (if it were 3D)
@@ -26,6 +32,7 @@ public:
 	GameMap(int x, int y, int z);	//Creates an x by y by z map
 	~GameMap();
 	bool addPlayer(Player* newPlayer);
+	void addUnit(int player, int x, int y);	//adds a unit at x,y owned by player
 	std::vector<Player*> getPlayers() {return players;}
 	int getNumPlayers() {return players.size();}
 	Block* getBlock(int camX, int camY, int camZ);	//Returns pointer to block at coordinate (x, y, z)

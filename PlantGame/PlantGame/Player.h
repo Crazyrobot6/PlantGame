@@ -13,7 +13,6 @@ private:
 	std::string playerName;
 	int playerNumber;
 	int score;
-	std::vector<Unit*> playersUnits;
 	EvoTree* evoTree;
 
 public:
@@ -23,6 +22,5 @@ public:
 	std::string getName();	//Returns the player's name
 	void addToScore(int points);	//Increases the player's score by the value passed to the function 
 	int getScore();	//Returns the player's current score
-	std::vector<Unit*> getUnits();	//Returns the vector holding the player's units
 	EvoTree* getEvoTree();	//Returns the player's evolution tree
 };
