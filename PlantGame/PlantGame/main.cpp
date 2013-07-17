@@ -117,11 +117,10 @@ int main()
 						curState = new StartMenu();
 						break;
 					case 3://Go from lobby into game
-						GameState* newState;
-						newState = new Game();
-						newState->addPlayers(curState->getPlayers());
+						std::vector<Player*> players = curState->getPlayers();
 						delete curState;
-						curState = newState;
+						curState = new Game();
+						curState->addPlayers(players);
 						//delete tempPlayers somehow?
 						break;
 				}

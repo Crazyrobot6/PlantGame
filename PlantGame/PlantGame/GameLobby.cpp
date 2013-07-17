@@ -69,7 +69,8 @@ void GameLobby::draw()
 	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press Space to start the Game");
 	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the GAME LOBBY.");
 	//draw player names
+	al_draw_textf(font36, al_map_rgb(255,255,255), 1920/2, 1080/2-35, ALLEGRO_ALIGN_CENTRE, "%i Player(s)", players.size());
 	for(int i=0; i<players.size(); i++)
-		al_draw_textf(font36, al_map_rgb(255,255,255), 1920/2, 1080/2 + (35*i), ALLEGRO_ALIGN_CENTRE, (char*)(players.at(i)->getName().c_str()));
+		al_draw_text(font36, al_map_rgb(255,255,255), 1920/2, 1080/2 + (35*i), ALLEGRO_ALIGN_CENTRE, (char*)(players.at(i)->getName().c_str()));
 
 }
