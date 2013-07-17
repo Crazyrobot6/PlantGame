@@ -117,10 +117,11 @@ int main()
 						curState = new StartMenu();
 						break;
 					case 3://Go from lobby into game
-						std::vector<Player*> tempPlayers = curState->getPlayers();	//Hopefully this copies the data, instead of pointing to it so it doesn't point to deleted data
+						GameState* newState;
+						newState = new Game();
+						newState->addPlayers(curState->getPlayers());
 						delete curState;
-						curState = new Game();
-						curState->addPlayers(tempPlayers);
+						curState = newState;
 						//delete tempPlayers somehow?
 						break;
 				}

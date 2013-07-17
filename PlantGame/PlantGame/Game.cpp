@@ -24,6 +24,7 @@ Game::~Game()
 //===========================================================================================================
 void Game::addPlayers(std::vector<Player*> newPlayers)
 {
+	players = newPlayers;
 }
 
 std::vector<Player*> Game::getPlayers()
@@ -101,4 +102,7 @@ void Game::draw()
 	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press Space to go back to the start menu");
 	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the GAME.");
 	al_draw_text(font36, al_map_rgb(100,0,100), 25,95,0, "Use WASD and scroll");
+	for(int i=0; i<players.size(); i++)
+		al_draw_textf(font36, al_map_rgb(255,255,0), 1920/2, 1080/2 + (35*i), ALLEGRO_ALIGN_CENTRE, (char*)(players.at(i)->getName().c_str()));
+
 }
