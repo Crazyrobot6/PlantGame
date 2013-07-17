@@ -34,8 +34,8 @@ int main()
 	//Create local variables
 	const int FPS = 60;
 	const int NUM_SAMPLES = 8; //number of sounds playing at one time
-	const int WIDTH = 1550;
-	const int HEIGHT = 880;
+	const int WIDTH = 1920;
+	const int HEIGHT = 1080;
 	int windowWidth = WIDTH; //NOT display width. Width of the actual on screen window. Used to make mouse still work after resizing display
 	int windowHeight = HEIGHT; //^same^
 	bool done = false; 
@@ -117,8 +117,11 @@ int main()
 						curState = new StartMenu();
 						break;
 					case 3://Go from lobby into game
+						std::vector<Player*> tempPlayers = curState->getPlayers();	//Hopefully this copies the data, instead of pointing to it so it doesn't point to deleted data
 						delete curState;
 						curState = new Game();
+						curState->addPlayers(tempPlayers);
+						//delete tempPlayers somehow?
 						break;
 				}
 				redraw = true;		//redraw goes to true every 1/60th sec, makes rendering smooth

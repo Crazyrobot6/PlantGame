@@ -13,21 +13,9 @@ StartMenu::~StartMenu()
 {
 	al_destroy_font(font36);
 }
+//===========================================================================================================
 
-int StartMenu::update()
-{
-	if(makeLobby)
-		return 1;
-	return -1;
-}
-
-void StartMenu::draw()
-{
-	al_draw_rectangle(mouseX-5, mouseY-5, mouseX+5, mouseY+5, al_map_rgb(255,0,0), 5);	//testing purposes
-	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press Space to make game Lobby");
-	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the START MENU.");
-}
-
+//===========================================================================================================
 void StartMenu::keyPressA()
 {
 }
@@ -46,9 +34,23 @@ void StartMenu::keyPressW()
 
 void StartMenu::keyPressSpace()
 {
-	makeLobby = true;	//testing purposes. Pressing A starts the game
+	makeLobby = true;	//testing purposes. Pressing A goes to lobby
 }
 
 void StartMenu::scroll(int dz)
 {
+}
+//===========================================================================================================
+int StartMenu::update()
+{
+	if(makeLobby)
+		return 1;
+	return -1;
+}
+
+void StartMenu::draw()
+{
+	al_draw_rectangle(mouseX-5, mouseY-5, mouseX+5, mouseY+5, al_map_rgb(255,0,0), 5);	//testing purposes
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press Space to make game Lobby");
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the START MENU.");
 }

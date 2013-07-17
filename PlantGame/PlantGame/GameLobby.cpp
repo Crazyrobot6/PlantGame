@@ -14,22 +14,16 @@ GameLobby::~GameLobby()
 	delete options;
 	al_destroy_font(font36);
 }
-
-int GameLobby::update()
+//===========================================================================================================
+void GameLobby::addPlayers(std::vector<Player*> newPlayers)
 {
-	if(exitToStart)
-		return 2;
-	if(startGame)
-		return 3;
-	return -1;
 }
 
-void GameLobby::draw()
+std::vector<Player*> GameLobby::getPlayers()
 {
-	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press Space to start the Game");
-	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the GAME LOBBY.");
+	return players;
 }
-
+//===========================================================================================================
 void GameLobby::keyPressA()
 {
 }
@@ -54,8 +48,18 @@ void GameLobby::keyPressSpace()
 void GameLobby::scroll(int dz)
 {
 }
-
-bool GameLobby::writeToTemp()
+//===========================================================================================================
+int GameLobby::update()
 {
-	return false;
+	if(exitToStart)
+		return 2;
+	if(startGame)
+		return 3;
+	return -1;
+}
+
+void GameLobby::draw()
+{
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,25,0, "Press Space to start the Game");
+	al_draw_text(font36, al_map_rgb(100,0,100), 25,60,0, "This is the GAME LOBBY.");
 }
