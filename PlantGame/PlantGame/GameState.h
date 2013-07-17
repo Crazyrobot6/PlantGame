@@ -1,7 +1,8 @@
 #pragma once
 
 #include <allegro5\allegro_primitives.h>
-#include "Player.h"
+#include "GameMap.h"
+#include "GameOptions.h"
 #include <allegro5\allegro_font.h>
 #include <allegro5\allegro_ttf.h>
 
@@ -14,6 +15,8 @@ protected:
 	int mouseX;
 	int mouseY;
 	ALLEGRO_FONT *font36;
+	GameMap* map;			//Map of everything on screen
+	GameOptions* options;	//Object that encapsulates all in-game options like fog of war, etc.
 
 public:
 	GameState(){}
@@ -28,8 +31,8 @@ public:
 	void virtual keyPressSpace() {}
 	void virtual scroll(int dz) {}
 
-	void virtual addPlayers(std::vector<Player*> newPlayers) {}	//adds vector of players to the class
-	std::vector<Player*> virtual getPlayers() {	std::vector<Player*> a;	return a;}	//gets the classes vector of players
+	void virtual addMap(GameMap* newMap) {map = newMap;}	//adds vector of players to the class
+	GameMap* getMap() {return map;}	//gets the classes vector of players
 
 	void virtual draw() {}	//Magical function that draws everything in-game to the screen
 	int virtual update() {return -1;}	//This gets called every sixtieth of a second to process non-graphical things like:

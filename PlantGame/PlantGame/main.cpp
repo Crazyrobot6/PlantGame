@@ -117,11 +117,10 @@ int main()
 						curState = new StartMenu();
 						break;
 					case 3://Go from lobby into game
-						GameState* newState;
-						newState = new Game();
-						newState->addPlayers(curState->getPlayers());
+						GameMap* map = curState->getMap();
 						delete curState;
-						curState = newState;
+						curState = new Game();
+						curState->addMap(map);
 						//delete tempPlayers somehow?
 						break;
 				}

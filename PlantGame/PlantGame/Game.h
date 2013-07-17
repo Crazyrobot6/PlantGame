@@ -12,9 +12,6 @@ private:
 	int camX;	//Each player will have their own game class, so these variables can be in the Game class
 	int camY;	//argggg, Imma pirate!!
 	int camZ;
-	std::vector<Player*> players;	//Vector holding all players currently in the game
-	GameMap* map;	//The map the game is being played on
-	GameOptions* options;	//Object that encapsulates all in-game options like fog of war, etc.
 	int turnsTaken;	//The number of total turns taken in the game; increments once every time the game cycles through all the players
 	int gameTime;	//Maybe this won't be an int, but this will be some variable that holds how long (real-time) the game has been running
     bool exitToStart;
@@ -30,8 +27,6 @@ public:
 	void keyPressW();
 	void keyPressSpace();
 	void scroll(int dz);
-	void addPlayers(std::vector<Player*> newPlayers);	//adds vector of players to the class
-	std::vector<Player*> getPlayers(); 	//gets the classes vector of players
 	
 	int update();	//updates whatever needs it every sixtieth of a second (including 'time')
 	void draw();	//Magical function that draws everything in-game to the screen

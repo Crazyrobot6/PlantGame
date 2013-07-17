@@ -2,12 +2,15 @@
 
 #include <vector>
 #include "Block.h"
+#include "Player.h"
 
 enum CAMERA_ANGLES {NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST};
 
 class GameMap
 {
 private:
+	int numPlayers;		//Number of players that fit on this map
+	std::vector<Player*> players;	//The players in this game
 	Block *blockMap[10][10][8];	//Three dimensional game-world map
 				//For now this is a 10x10x8 array to make it easier
 	ALLEGRO_BITMAP *blockImages[NUM_SOIL_TYPES];
@@ -20,11 +23,11 @@ private:
 	int angleID;
         
 public:
-	GameMap(int x, int y, int z);	//Creates an x by y by z map of null pointers
+	GameMap(int x, int y, int z);	//Creates an x by y by z map
 	~GameMap();
-	void draw(int x,int y,int z);	//Draws based on camera position
-	void setCameraAngle(int newAngleID);	//Sets the angle from which the map is viewed
-	void setDimensions(int x, int y, int z);	//Sets dimensions of the map
-	void setBlocks(std::vector<std::vector<std::vector<Block*>>>* newMap);	//Sets the actual blocks within the map
-	Block* getBlock(int camX,int camY, int camZ);	//Returns pointer to block at coordinate (x, y, z)
+	bool addPlayer(Player* newPlayer);
+	std::vector<Player*> getPlayers() {return players;}
+	int getNumPlayers() {return players.size();}
+	Block* getBlock(int camX, int camY, int camZ);	//Returns pointer to block at coordinate (x, y, z)
+	void draw(int x, int y,int z);	//Draws based on camera position
 };
