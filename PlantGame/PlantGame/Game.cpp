@@ -25,7 +25,10 @@ void Game::addMap(GameMap* newMap)
 {
 	map = newMap;
 	map->addUnit(0,0,0);
-	map->addUnit(1,5,1);
+	map->addUnit(0,1,7);
+	map->addUnit(0,3,4);
+	map->addUnit(0,4,8);
+	map->addUnit(0,9,9);
 }
 //===========================================================================================================
 /*

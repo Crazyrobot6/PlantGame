@@ -13,10 +13,12 @@ class GameMap
 private:
 	unsigned int numPlayers;		//Number of players that fit on this map
 	std::vector<Player*> players;	//The players in this game
-	Block *blockMap[10][10][8];	//Three dimensional game-world map
+	Block *blockMap[11][11][9];	//Three dimensional game-world map. It is one bigger in each dir to make drawing easier
 				//For now this is a 10x10x8 array to make it easier
 	ALLEGRO_BITMAP *blockImages[NUM_SOIL_TYPES];
 	ALLEGRO_BITMAP* unitImages[NUM_UNIT_TYPES][NUM_IMAGES_PER_UNIT];
+	int unitWidths[NUM_UNIT_TYPES][NUM_IMAGES_PER_UNIT];
+	int unitHeights[NUM_UNIT_TYPES][NUM_IMAGES_PER_UNIT];
 	Unit* unitsOnMap[10][10]; //pointers to the units on the map so that game map has easier time knowing where/if units are
 							  //updates when units are added
 							  //possibly a better way to do this?

@@ -7,6 +7,10 @@ GameMap::GameMap(int x, int y, int z)
 	this->y = y;
 	this->z = z;
 	numPlayers = 2;	//Max of 2 players on this map
+	for(int i=0; i<x+1; i++)	//x
+		for(int j=0; j<y+1; j++) //y
+			for(int k=0; k<z+1; k++)
+				blockMap[i][j][k] = NULL;
 	for(int i=0; i<x; i++)	//x
 		for(int j=0; j<y; j++) //y
 		{
@@ -18,8 +22,6 @@ GameMap::GameMap(int x, int y, int z)
 			{
 				if(rand() % 2 && blockMap[i][j][k-1] != NULL)		//will randomly create some as long as the block below it is soil
 					blockMap[i][j][k] = new Block(1 + rand() % 3);
-				else
-					blockMap[i][j][k] = NULL;
 			}
 			unitsOnMap[i][j] = NULL;
 		}
@@ -44,6 +46,13 @@ GameMap::GameMap(int x, int y, int z)
 	blockWidth = al_get_bitmap_width(blockImages[0]);
 	blockHeight = al_get_bitmap_height(blockImages[0])-1; //-1 because it looks better;
 	blockPerceivedHeight = 32;
+
+	for(int i=0;i<NUM_UNIT_TYPES;i++)
+		for(int j=0;j<NUM_IMAGES_PER_UNIT;j++)
+		{
+			unitWidths[i][j] = al_get_bitmap_width(unitImages[i][j]);
+			unitHeights[i][j] = al_get_bitmap_height(unitImages[i][j]);
+		}
 }
 
 GameMap::~GameMap()
@@ -76,79 +85,28 @@ Block* GameMap::getBlock(int x, int y, int z)
 void GameMap::draw(int camX, int camY, int camZ)
 {
 	//Draws all blocks that are missing a block above or in front of them
-	for(int i=0; i<x-1; i++)	//x
-		for(int j=0; j<y-1; j++) //y
-		{	
-			int top=0;
-			for(int k=0; k<camZ-1; k++)//z
-				if(blockMap[i][j][k] != NULL && !(blockMap[i+1][j][k] != NULL && blockMap[i][j+1][k] != NULL && blockMap[i][j][k+1] != NULL))
-				{
-					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
-						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
-					top++;
-				}
-			//draw plant on top of top block
-			if(unitsOnMap[i][j] != NULL)
-				al_draw_bitmap(unitImages[0][0],//unitImages[unitsOnMap[i][j]->getClass()][unitsOnMap[i][j]->getSize()],
-					camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-					camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((top)*(blockPerceivedHeight-4)),0);
-		}
-	// draws front right row
-	for(int i=x-1; i<x; i++)	//x
-		for(int j=0; j<y-1; j++) //y
-		{
-			int top=0;
-			for(int k=0; k<camZ; k++)
-				if(blockMap[i][j][k] != NULL)
-				{
-					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
-						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
-					top++;
-				}
-			//draw plant on top of top block
-			if(unitsOnMap[i][j] != NULL)
-				al_draw_bitmap(unitImages[unitsOnMap[i][j]->getClass()][unitsOnMap[i][j]->getSize()],
-					camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-					camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((top)*(blockPerceivedHeight-4)),0);
-		}
-	//draws front left row
-	for(int i=0; i<x; i++)	//x
-		for(int j=y-1; j<y; j++) //y.
-		{
-			int top=0;
-			for(int k=0; k<camZ; k++)
-				if(blockMap[i][j][k] != NULL)
-				{
-					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
-						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
-					top++;
-				}
-			//draw plant on top of top block
-			if(unitsOnMap[i][j] != NULL)
-				al_draw_bitmap(unitImages[unitsOnMap[i][j]->getClass()][unitsOnMap[i][j]->getSize()],
-					camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-					camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((top)*(blockPerceivedHeight-4)),0);
-		}
-	//draws top layer
 	for(int i=0; i<x; i++)	//x
 		for(int j=0; j<y; j++) //y
-		{
+		{	
 			int top=0;
-			for(int k=camZ-1; k<camZ; k++)
+			for(int k=0; k<camZ; k++)//z
+			{
 				if(blockMap[i][j][k] != NULL)
 				{
-					al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
-						camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-						camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
+					if(k==camZ-1 || !(blockMap[i+1][j][k] != NULL && blockMap[i][j+1][k] != NULL && blockMap[i][j][k+1] != NULL))
+						al_draw_bitmap(blockImages[blockMap[i][j][k]->getBitmap()],
+							camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
+							camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((k)*(blockPerceivedHeight-4)),0);
 					top++;
 				}
+			}
 			//draw plant on top of top block
-			if(unitsOnMap[i][j] != NULL)
+			if(unitsOnMap[i][j] != NULL && (top-1 == camZ || blockMap[i][j][top] == NULL))
 				al_draw_bitmap(unitImages[0][0],//unitImages[unitsOnMap[i][j]->getClass()][unitsOnMap[i][j]->getSize()],
-					camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-(j*blockWidth/2),
-					camY+(camZ*blockPerceivedHeight)+((j+i)*(blockHeight-blockPerceivedHeight)/2)-((top)*(blockPerceivedHeight-4)),0);
+					camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-((j-1)*blockWidth/2)-(unitWidths[0][0]/2),
+					camY+(camZ*blockPerceivedHeight)+((j+i+2)*(blockHeight-blockPerceivedHeight)/2)-((top)*(blockPerceivedHeight-4))-(unitHeights[0][0]),0);
+			/*let's you see how it draws
+			al_flip_display();
+			al_rest(0.1);*/
 		}
 }

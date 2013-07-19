@@ -48,7 +48,8 @@ void GameLobby::keyPressW()
 
 void GameLobby::keyPressSpace()
 {
-	startGame = true;
+	if(map != NULL && map->getNumPlayers() == 2)
+		startGame = true;
 }
 
 void GameLobby::scroll(int dz)
