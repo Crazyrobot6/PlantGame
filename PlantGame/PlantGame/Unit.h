@@ -5,7 +5,7 @@
 #include "Player.h"
 
 class Player;
-enum UNIT_CLASSES {TREE, BUSH, FLOWER};
+enum UNIT_CLASSES {TREE, FLOWER, BUSH};
 
 class Unit
 {
@@ -29,8 +29,9 @@ protected:
 	int mineralPercentGrowth; //{0,100} Percent of minerals to be put toward growing, rest goes towards making seeds
 
 public:
-	Unit() {classID = TREE;}	//Initialization
+	Unit() {}	//Initialization
 	~Unit() {}	//Garbage collection
+	void setID(int newID) {unitID = newID;}
 	int getID() {return unitID;}
 	int getClass() {return classID;}
 	int getSize() {return level;}
@@ -44,4 +45,5 @@ public:
 				//checking to see if they are ready to produce seeds
 	void addBlock(Block* newBlock) {ownedBlocks.push_back(newBlock);}	//Adds another block to the list of blocks the plant posesses
 	void removeBlock(Block* blockToRemove) {}	//Removes a block from the plant's ownership
+	void virtual addMinerals() {level++;}	//Gets minerals from its soil blocks. Also calculates if it needs to make seeds and calculates level and stuff
 };

@@ -71,17 +71,21 @@ bool GameMap::addPlayer(Player* newPlayer)
 void GameMap::addUnit(int player, int x, int y)	//This should only add initial units (future units will be added by GameMap from seeds
 {
 	//Get player's settings for their unit and adds it to unitsOnMap[x][y]
-	Unit* newUnit;
-	newUnit = new Unit();
-	newUnit->setOwner(players.at(player));
-	unitsOnMap[x][y] = newUnit;
+	if(player == 0)
+		unitsOnMap[x][y] = new Tree();
+	else
+		unitsOnMap[x][y] = new Flower();
+
+	unitsOnMap[x][y]->setOwner(players.at(player));
 }
 
-Block* GameMap::getBlock(int x, int y, int z)
+void GameMap::nextTurn(int nextPlayer)
 {
-	return blockMap[x][y][z];
+	for(int i=0; i<x; i++)
+		for(int j=0; j<y; j++)
+			if(unitsOnMap[i][j] != NULL && unitsOnMap[i][j]->getOwner() == players.at(nextPlayer))
+				unitsOnMap[i][j]->addMinerals();
 }
-
 void GameMap::draw(int camX, int camY, int camZ)
 {
 	//Draws all blocks that are missing a block above or in front of them
@@ -102,9 +106,9 @@ void GameMap::draw(int camX, int camY, int camZ)
 			}
 			//draw plant on top of top block
 			if(unitsOnMap[i][j] != NULL && (top-1 == camZ || blockMap[i][j][top] == NULL))
-				al_draw_bitmap(unitImages[0][0],//unitImages[unitsOnMap[i][j]->getClass()][unitsOnMap[i][j]->getSize()],
-					camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-((j-1)*blockWidth/2)-(unitWidths[0][0]/2),
-					camY+(camZ*blockPerceivedHeight)+((j+i+2)*(blockHeight-blockPerceivedHeight)/2)-((top)*(blockPerceivedHeight-4))-(unitHeights[0][0]),0);
+				al_draw_bitmap(unitImages[unitsOnMap[i][j]->getClass()][unitsOnMap[i][j]->getSize()],
+					camX+((x-1)*blockWidth/2)+(i*blockWidth/2)-((j-1)*blockWidth/2)-(unitWidths[unitsOnMap[i][j]->getClass()][unitsOnMap[i][j]->getSize()]/2),
+					camY+(camZ*blockPerceivedHeight)+((j+i+2)*(blockHeight-blockPerceivedHeight)/2)-((top)*(blockPerceivedHeight-4))-(unitHeights[unitsOnMap[i][j]->getClass()][unitsOnMap[i][j]->getSize()]),0);
 			/*let's you see how it draws
 			al_flip_display();
 			al_rest(0.1);*/

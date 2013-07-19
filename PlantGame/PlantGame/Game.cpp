@@ -24,42 +24,23 @@ Game::~Game()
 void Game::addMap(GameMap* newMap)
 {
 	map = newMap;
-	map->addUnit(0,0,0);
-	map->addUnit(0,1,7);
+	map->addUnit(1,0,0);
+	map->addUnit(1,1,7);
 	map->addUnit(0,3,4);
 	map->addUnit(0,4,8);
 	map->addUnit(0,9,9);
 }
-//===========================================================================================================
-/*
-void Game::setMap(GameMap* newMap)
-{
-	map = newMap;
-}
 
-void Game::setOptions(GameOptions* newOptions)
-{
-	options = newOptions;
-}
-
-int Game::getTurnsTaken()
-{
-	return turnsTaken;
-}
-
-int Game::getGameTime()
-{
-	return gameTime;
-}
-*/
 void Game::keyPressA()
 {
 	camX += 100;
+	map->nextTurn(0);
 }
 
 void Game::keyPressD()
 {
 	camX -= 100;
+	map->nextTurn(1);
 }
 
 void Game::keyPressS()

@@ -2,6 +2,9 @@
 
 #include <vector>
 #include "Block.h"
+#include "Tree.h"
+#include "Flower.h"
+#include "Bush.h"
 #include "Player.h"
 
 enum CAMERA_ANGLES {NORTH_WEST, NORTH_EAST, SOUTH_WEST, SOUTH_EAST};
@@ -37,6 +40,7 @@ public:
 	void addUnit(int player, int x, int y);	//adds a unit at x,y owned by player
 	std::vector<Player*> getPlayers() {return players;}
 	int getNumPlayers() {return players.size();}
-	Block* getBlock(int camX, int camY, int camZ);	//Returns pointer to block at coordinate (x, y, z)
+
+	void nextTurn(int nextPlayer); //Updates units and blocks for next player's turn
 	void draw(int x, int y,int z);	//Draws based on camera position
 };
